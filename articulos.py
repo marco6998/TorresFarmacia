@@ -1,11 +1,11 @@
-import mysql.connector
+import sqlite3
 
 class Articulos:
 
     def abrir(self):
-        conexion=mysql.connector.connect(host="localhost", 
+        conexion=sqlite3.connect(host="localhost", 
                                               user="root", 
-                                              passwd="", 
+                                              password="", 
                                               database="bd1")
         return conexion
 
