@@ -1,19 +1,20 @@
-import sqlite3
+import mysql.connector
 
 class Articulos:
 
     def abrir(self):
-        conexion=sqlite3.connect(host="localhost", 
+        conexion=mysql.connector.connect(host="localhost", 
                                               user="root", 
-                                              password="", 
+                                              passwd="", 
                                               database="bd1")
         return conexion
+
 
 
     def alta(self, datos):
         cone=self.abrir()
         cursor=cone.cursor()
-        sql="insert into articulos(descripcion, precio) values (%s,%s)"
+        sql="insert into articulos(id, nombre, formula, precio, cantidad, presentacion, caducidad, laboratorio_id, ubicacion_id) values (%s,%s,%s,%s,%s,%s,%s,%s)"
         cursor.execute(sql, datos)
         cone.commit()
         cone.close()
@@ -21,7 +22,7 @@ class Articulos:
     def consulta(self, datos):
         cone=self.abrir()
         cursor=cone.cursor()
-        sql="select descripcion, precio from articulos where codigo=%s"
+        sql="select id, nombre, formula, precio, cantidad, presentacion, caducidad, laboratorio_id, ubicacion_id nombre from articulos where codigo=%s"
         cursor.execute(sql, datos)
         cone.close()
         return cursor.fetchall()
@@ -29,7 +30,7 @@ class Articulos:
     def recuperar_todos(self):
         cone=self.abrir()
         cursor=cone.cursor()
-        sql="select codigo, descripcion, precio from articulos"
+        sql="select codigo, id, nombre, formula, precio, cantidad, presentacion, caducidad, laboratorio_id, ubicacion_id nombre from articulos"
         cursor.execute(sql)
         cone.close()
         return cursor.fetchall()
@@ -41,13 +42,13 @@ class Articulos:
         cursor.execute(sql, datos)
         cone.commit()
         cone.close()
-        return cursor.rowcount # retornamos la cantidad de filas borradas
+        return cursor.rowcount 
 
     def modificacion(self, datos):
         cone=self.abrir()
         cursor=cone.cursor()
-        sql="update articulos set descripcion=%s, precio=%s where codigo=%s"
+        sql="update articulos set id=%s, precio=%s, nombre= %s where codigo=%s"
         cursor.execute(sql, datos)
         cone.commit()
         cone.close()
-        return cursor.rowcount # retornamos la cantidad de filas modificadas
+        return cursor.rowcount 
