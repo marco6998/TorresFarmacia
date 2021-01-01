@@ -1,9 +1,9 @@
-import mysql.connector
+import sqlite3
 
 class Articulos:
 
     def abrir(self):
-        conexion=mysql.connector.connect(host="localhost", 
+        conexion=sqlite3.connector.connect(host="localhost", 
                                               user="root", 
                                               passwd="", 
                                               database="bd1")
@@ -51,4 +51,4 @@ class Articulos:
         cursor.execute(sql, datos)
         cone.commit()
         cone.close()
-        return cursor.rowcount 
+        return cursor.rowcount

@@ -2,12 +2,18 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as mb
 from tkinter import scrolledtext as st
-import articulos
 
-class FormularioArticulos:
+from module.producto.model import Producto
+from module.producto.service import ProductoService
+"""
+Vista/interfaz
+-Pendiente: Separar archivos en varias clases para mantenimiento
+"""
+
+class ProductoForm:
     def _init_(self):
-        self.articulo1=articulos.Articulos()
-        self.ventana1=tk.Tk()
+        self.service = ProductoService()
+        self.ventana1 = tk.Tk()
         self.ventana1.title("Farmacia Torres")
         self.cuaderno1 = ttk.Notebook(self.ventana1)        
         self.carga_articulos()
@@ -24,8 +30,8 @@ class FormularioArticulos:
         self.labelframe1=ttk.LabelFrame(self.pagina1, text="Articulo")        
         self.labelframe1.grid(column=0, row=0, padx=5, pady=10)
 
-        self.label1=ttk.Label(self.labelframe1, text="id:")
-        self.label1.grid(column=0, row=0, padx=4, pady=4)
+        self.label1 =ttk.Label(self.labelframe1, text="id:")
+        self.label1.grid(column = 0, row=0, padx=4, pady=4)
         self.idcarga=tk.StringVar()
         self.entryid=ttk.Entry(self.labelframe1, textvariable=self.idcarga)
         self.entryid.grid(column=1, row=0, padx=4, pady=4)
@@ -82,19 +88,28 @@ class FormularioArticulos:
         self.entryubicacion_id=ttk.Entry(self.labelframe1, textvariable=self.ubicacion_idcarga)
         self.entryubicacion_id.grid(column=1, row=8, padx=4, pady=4)
 
-
-
-
-
-
-
         self.boton1=ttk.Button(self.labelframe1, text="Confirmar", command=self.agregar)
         self.boton1.grid(column=1, row=9, padx=4, pady=4)
 
     def agregar(self):
-        datos=(self.idcarga.get(), self.preciocarga.get())
-        self.articulo1.alta(datos)
+        producto = Producto()
+        producto.id = self.idcarga.get()
+        producto.nombre = self.nombrecarga.get()
+        producto.formula = self.formulacarga.get()
+        producto.precio = self.preciocarga.get()
+        producto.cantidad = self.cantidadcarga.get()
+        producto.presentacion = self.presentacioncarga.get()
+        producto.caducidad = self.caducidadcarga.get()
+        producto.laboratorio_id = self.laboratorio_idcarga.get()
+        producto.ubicacion_id = self.ubicacion_idcarga.get()
+                 
+        
+    
+        self.service.insertar(producto)
         mb.showinfo("Informacion", "Los datos fueron cargados")
+        self.limpiar_agregar()
+
+    def limpiar_agregar(self):
         self.idcarga.set("")
         self.nombrecarga.set("")
         self.formulacarga.set("")
@@ -104,6 +119,7 @@ class FormularioArticulos:
         self.caducidadcarga.set("")
         self.laboratorio_idcarga.set("")
         self.ubicacion_idcarga.set("")
+   
 
     def consulta_por_codigo(self):
         self.pagina2 = ttk.Frame(self.cuaderno1)
@@ -238,6 +254,3 @@ class FormularioArticulos:
             self.idmod.set('')
             self.preciomod.set('')
             mb.showinfo("Informacion", "No existe un articulo con dicho codigo")
-
-
-aplicacion1=FormularioArticulos()
