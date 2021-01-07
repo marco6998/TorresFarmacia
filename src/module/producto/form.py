@@ -5,13 +5,13 @@ from tkinter import scrolledtext as st
 
 from module.producto.model import Producto
 from module.producto.service import ProductoService
-"""
-Vista/interfaz
--Pendiente: Separar archivos en varias clases para mantenimiento
-"""
 
-class ProductoForm:
-    def _init_(self):
+#Vista/interfaz
+#-Pendiente: Separar archivos en varias clases para mantenimiento
+
+
+class  ProductoForm:
+    def __init__ (self):
         self.service = ProductoService()
         self.ventana1 = tk.Tk()
         self.ventana1.title("Farmacia Torres")
@@ -24,6 +24,7 @@ class ProductoForm:
         self.cuaderno1.grid(column=0, row=0, padx=10, pady=10)
         self.ventana1.mainloop()
 
+        #parte visual de carga productos hasta el "confirmar"
     def carga_articulos(self):
         self.pagina1 = ttk.Frame(self.cuaderno1)
         self.cuaderno1.add(self.pagina1, text="Carga de articulos")
@@ -88,9 +89,14 @@ class ProductoForm:
         self.entryubicacion_id=ttk.Entry(self.labelframe1, textvariable=self.ubicacion_idcarga)
         self.entryubicacion_id.grid(column=1, row=8, padx=4, pady=4)
 
+        #de aqui se jala el agregar del siguiente def
         self.boton1=ttk.Button(self.labelframe1, text="Confirmar", command=self.agregar)
         self.boton1.grid(column=1, row=9, padx=4, pady=4)
 
+
+
+
+    #Este agregar, jala logica del service
     def agregar(self):
         producto = Producto()
         producto.id = self.idcarga.get()
@@ -106,8 +112,18 @@ class ProductoForm:
         
     
         self.service.insertar(producto)
+
         mb.showinfo("Informacion", "Los datos fueron cargados")
+
         self.limpiar_agregar()
+
+
+
+
+
+
+
+
 
     def limpiar_agregar(self):
         self.idcarga.set("")
@@ -121,11 +137,38 @@ class ProductoForm:
         self.ubicacion_idcarga.set("")
    
 
+
+
+
+
+
+
+
+
+
+
+
+
+        self.label7=ttk.Label(self.labelframe1, text="Caducidad:")        
+        self.label7.grid(column=0, row=6, padx=4, pady=4)
+        self.caducidadcarga=tk.StringVar()
+        self.entrycaducidad=ttk.Entry(self.labelframe1, textvariable=self.caducidadcarga)
+        self.entrycaducidad.grid(column=1, row=6, padx=4, pady=4)
+
+
+
+
+
+
+
+
     def consulta_por_codigo(self):
         self.pagina2 = ttk.Frame(self.cuaderno1)
         self.cuaderno1.add(self.pagina2, text="Consulta")
+
         self.labelframe2=ttk.LabelFrame(self.pagina2, text="Articulo")
         self.labelframe2.grid(column=0, row=0, padx=5, pady=10)
+
 
 
         self.label1=ttk.Label(self.labelframe2, text="id:")        
@@ -143,6 +186,7 @@ class ProductoForm:
         self.entrynombre.grid(column=1, row=2, padx=4, pady=4)
 
 
+        #No ingresa valores, llama a un def.consultas
         self.boton1=ttk.Button(self.labelframe2, text="Consultar", command=self.consultar)
         self.boton1.grid(column=1, row=3, padx=4, pady=4)
 
@@ -157,9 +201,7 @@ class ProductoForm:
         else:
             self.id.set('')
             self.precio.set('')
-            mb.showinfo("Informacion", "No existe un articulo con dicho codigo")
-
-
+            mb.showinfo("Informacion", "no existe un articulo con dicho codigo")
 
 
     def listado_completo(self):
@@ -204,7 +246,7 @@ class ProductoForm:
         if cantidad==1:
             mb.showinfo("Informacion", "Se borro el articulo con dicho codigo")
         else:
-            mb.showinfo("Informacion", "No existe un articulo con dicho codigo")
+            mb.showinfo("Informacion", "no existe un articulo con dicho codigo")
 
     def modificar(self):
         self.pagina5 = ttk.Frame(self.cuaderno1)
@@ -213,12 +255,7 @@ class ProductoForm:
         self.labelframe5.grid(column=0, row=0, padx=5, pady=10)
         self.label1=ttk.Label(self.labelframe5, text="Codigo:")
         self.label1.grid(column=0, row=0, padx=4, pady=4)
-        self.codigomod=tk.StringVar()
-
-
-
-
-
+        self.codigomod=tk.StringVar()            
         self.entrycodigo=ttk.Entry(self.labelframe5, textvariable=self.codigomod)
         self.entrycodigo.grid(column=1, row=0, padx=4, pady=4)
         self.label2=ttk.Label(self.labelframe5, text="id:")        

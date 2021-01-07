@@ -1,9 +1,8 @@
 from database.conexion import ConexionDatabase
-from database.conexion import ConexionDatabase
- 
+
  #"""
  #Logica del negocio
-#-Consulta a BD
+    #-Consulta a BD
  #-Lógica compleja
 
 class ProductoService:
@@ -21,7 +20,7 @@ class ProductoService:
             (producto.id, producto.nombre, producto.formula, producto.precio, producto.cantidad, 
             producto.presentacion, producto.caducidad, producto.laboratorio_id, producto.ubicacion_id)   
         )
-        
+
 
     def consultar_todos(self):
         pass

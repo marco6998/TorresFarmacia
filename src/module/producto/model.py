@@ -1,8 +1,8 @@
 import sqlite3
-"""
-Abstracción del modelo de la base de datos
 
-"""
+#Abstracción del modelo de la base de datos
+
+
 class Producto:
 
     def _init_(self):
