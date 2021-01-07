@@ -10,7 +10,7 @@ class ConexionDatabase:
             ConexionDatabase.instance = ConexionDatabase()
         return ConexionDatabase.instance
 
-    def _init_(self):
+    def __init__(self):
         self.conn = None
 
     def query(self, sql, data):

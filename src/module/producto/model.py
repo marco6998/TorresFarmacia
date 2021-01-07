@@ -1,11 +1,11 @@
 import sqlite3
 
 #Abstracción del modelo de la base de datos
-
+#falta cambiar date a caducidad
 
 class Producto:
 
-    def _init_(self):
+    def __init__(self):
         self.id = 0
         self.nombre = ""
         self.formula = ""

@@ -7,7 +7,7 @@ from database.conexion import ConexionDatabase
 
 class ProductoService:
 
-    def _init_(self) :
+    def __init__(self) :
         self.db = ConexionDatabase.get_instance()
 
 
@@ -22,7 +22,7 @@ class ProductoService:
         )
 
 
-    def consultar_todos(self):
+    def consultar_todos(self, producto):
         pass
 
     def consultar_id(self):
