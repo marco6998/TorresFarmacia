@@ -3,7 +3,7 @@ import sqlite3
 
 class ConexionDatabase:
     instance = None
-    
+
     @staticmethod
     def get_instance():
         if not ConexionDatabase.instance:
@@ -22,5 +22,5 @@ class ConexionDatabase:
 
     def connect(self):
         if not self.conn:
-            self.conn = sqlite3.connect("/Users/marcopichardofranco/Downloads/farmaciadb.sqlite")
+            self.conn = sqlite3.connect("C:/Users/eldit/Desktop/farmaciadb.sqlite")
         return self.conn
